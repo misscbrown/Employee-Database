@@ -69,6 +69,17 @@ async function getEmployeeId(fullName) {
     return rows[0].id;
 }
 
+async function getEmployeeNames() {
+    let query = "SELECT * FROM employee";
+    const rows = await db.query(query);
+    let employeeNames = [];
+    for(const employee of rows) {
+        employeeNames.push(employee.first_name + " " + employee.last_name);
+    }
+    return employeeNames;
+}
+
+// Selects all to view all roles
 async function viewAllRoles() {
     console.log("");
     let query = "SELECT * FROM role";
@@ -76,4 +87,29 @@ async function viewAllRoles() {
     console.table(rows);
     return rows;
 }
+
+// Selects all to view all departments
+async function viewAllDepts() {
+    let query = "SELECT * FROM department";
+    const rows = await db.query(query);
+    console.table(rows);
+}
+
+// Selects all to view all employees
+async function viewAllEmployees() {
+    console.log("");
+    let query = "SELECT * FROM employee";
+    const rows = await db.query(query);
+    console.table(rows);
+}
+
+// Allows viewing all employees by department
+async function viewAllEmployeesByDepartment() {
+    let query = "SELECT first_name, last_name, department.name FROM ((employeee INNER JOIN role ON role_id = role.id) INNER JOIN department ON department_id = department.id);";
+    const rows = await db.query(query);
+    console.table(rows);
+}
+
+// Returns an array featuring two elements
+
 
