@@ -18,3 +18,10 @@ INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ("Carla
 INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ("Farhiya", "Mahamud", 2, 1);
 INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ("Rizwan", "Ashraf", 2, 1);
 
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ("Mica", "Gray", 3, null);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ("Leon", "Jackson", 3, 1);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ("Nicole", "Cristiana", 3, 1);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ("Tasia", "Graham", 4, 1); 
+
+
+
