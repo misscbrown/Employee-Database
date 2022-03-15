@@ -8,6 +8,6 @@ const db = new database({
     port: 3000,
     user: "root",
     password: "password",
-    database: "cms"
+    database: "employee_tracker"
 });
 
