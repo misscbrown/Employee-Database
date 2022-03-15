@@ -134,5 +134,13 @@ async function updateEmployeeRole(employeeInfo) {
     console.log(`Updated employee ${employee[0]} ${employee[1]} with role ${employeeInfo.role}`);
 }
 
+async function addEmployee(employeeInfo) {
+    let roleId = await getRoleId(employeeInfo.role);
+    let managerId = await getEmployeeId(employeeInfo.manager);
+    let query = "INSERT into employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)";
+    const rows = await db.query(query, args);
+    console.log(`added employee ${employeeInfo.first_name} ${employeeInfo.last_name}`);
+}
+
 
 
