@@ -2,9 +2,9 @@
 const inquirer = require("inquirer");
 let Database = require("./database.js");
 let consoleTable = require("console.table");
-const prompts = require("./prompts.js")
+const prompts = require("./prompts.js");
 
-console.log("hello world")
+// console.log("hello world")
 
 const db = new Database({
     host: "localhost",
@@ -181,5 +181,5 @@ async function addRole(roleInfo) {
     console.log(`Added ${title}`);
 };
 
-
+prompts();
 
