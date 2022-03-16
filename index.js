@@ -1,4 +1,4 @@
-// dependencies
+// Dependencies needed to run
 const inquirer = require("inquirer");
 let Database = require("./database.js");
 let consoleTable = require("console.table");
@@ -12,6 +12,10 @@ const db = new Database({
     database: "employee_tracker"
 });
 
+// Starts calls to the database using async - which makes a function return a Promise
+// and await, which makes the function wait for a Promise
+
+// Gets information for the manager
 async function getManagerInfo() {
     let query = "SELECT * FROM employee WHERE manager_id IS NULL";
     const rows = await db.query(query);
@@ -23,6 +27,7 @@ async function getManagerInfo() {
     return employeeNames;
 }
 
+// Gets all the roles in the database
 async function getRoles() {
     let query = "SELECT title FROM role";
     const rows = await db.query(query);
@@ -44,7 +49,7 @@ async function getDeptNames() {
     return departments;
 }
 
-// The required department id
+ // The required department id
 async function getDeptId(departmentName) {
     let query = "SELECT * FROM department WHERE department.name=?";
     let arguments = [departmentName];
@@ -69,6 +74,7 @@ async function getEmployeeId(fullName) {
     return rows[0].id;
 }
 
+// Gets the employees names
 async function getEmployeeNames() {
     let query = "SELECT * FROM employee";
     const rows = await db.query(query);
@@ -125,6 +131,7 @@ function getFirstAndSurname( fullName ) {
     return [first_name.trim(), last_name];
 }
 
+// Updates the role of the employee
 async function updateEmployeeRole(employeeInfo) {
     const roleId = await getRoleId(employeeInfo.role);
     const employee = getFirstAndSurname(employeeInfo.employeeName);
@@ -134,6 +141,7 @@ async function updateEmployeeRole(employeeInfo) {
     console.log(`Updated employee ${employee[0]} ${employee[1]} with role ${employeeInfo.role}`);
 }
 
+// Adds a manager as an employee 
 async function addEmployee(employeeInfo) {
     let roleId = await getRoleId(employeeInfo.role);
     let managerId = await getEmployeeId(employeeInfo.manager);
@@ -141,6 +149,35 @@ async function addEmployee(employeeInfo) {
     const rows = await db.query(query, args);
     console.log(`added employee ${employeeInfo.first_name} ${employeeInfo.last_name}`);
 }
+
+// Removes an employee from database
+async function removeEmployee(employeeInfo) {
+    const employeeName = getFirstAndSurname(employeeInfo.employeeName);
+    let query = "DELETE from employee WHERE first_name=? AND last_name=?";
+    let args = [employeeName[0], employeeName[1]]
+    const rows = await db.query(query, args);
+    console.log(`Removed ${employeeName[0]} ${employeeName[1]}`);
+}
+
+// Adds a department
+async function addDepartment(departmentInfo) {
+    const departmentName = departmentInfo.departmentName;
+    let query = "INSERT into department (name) VALUES (?)";
+    let args = [departmentName];
+    const rows = await db.query(query, args);
+    console.log(`Added ${departmentName}`);
+}
+
+// // Adds specific information to the role
+async function addRole(roleInfo) {
+    const departmentId = await getDepartmentId(roleInfo.departmentName);
+    const salary = roleInfo.salary;
+    const title = roleInfo.roleName;
+    let query = 'INSERT into role (title, salary, department_id) VALUES (?,?,?)';
+    let args = [title, salary, departmentId];
+    const rows = await db.query(query, args);
+    console.log(`Added ${title}`);
+};
 
 
 
