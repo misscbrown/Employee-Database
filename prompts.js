@@ -7,7 +7,8 @@ let consoleTable = require("console.table");
 
 // Questions for the user to answer
 function mainQuestions() {
-    return inquirer.prompt([
+    return inquirer
+    .prompt([
         {
             type: "list",
             message: 'Choose what you would like to do',
@@ -31,7 +32,8 @@ function mainQuestions() {
 function getAddEmployeeInfo() {
     const managers = getManagerNames();
     const roles = getRoles();
-    return inquirer.prompt([
+    return inquirer
+    .prompt([
         {
             type: 'input',
             name: 'first_name',
