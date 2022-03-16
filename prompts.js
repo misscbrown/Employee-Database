@@ -59,3 +59,43 @@ function getAddEmployeeInfo() {
         }
     ])
 }
+
+function getRemoveEmployeeInfo() {
+    const employees = getEmployeeNames();
+    return inquirer
+    .prompt([
+        {
+            type: 'list',
+            message: 'Select the employee you would like to remove',
+            name: 'employeeName',
+            choices: [
+                ...employees
+            ]
+        }
+    ])
+}
+
+function getDepartmentInfo() {
+    const departments = getDepartmentNames();
+    return inquirer
+    .prompt([
+        {
+            type: 'input',
+            message: 'What is the title of the new role?',
+            name: 'roleName'
+        },
+        {
+            type: 'input',
+            message: 'What is the salary of the new role?',
+            name: 'salary'
+        },
+        {
+            type: 'list',
+            message: 'Select the department the role belongs to',
+            name: 'departmentName',
+            choices: [
+                ...departments
+            ]
+        }
+    ])
+}
