@@ -18,7 +18,7 @@ const db = new Database({
 // and await, which makes the function wait for a Promise
 
 // Gets information for the manager
-async function getManagerInfo() {
+async function getManagerNames() {
     let query = "SELECT * FROM employee WHERE manager_id IS NULL";
     const rows = await db.query(query);
     console.log("number of rows returned " + rows.length);
@@ -52,7 +52,7 @@ async function getDepartmenttNames() {
 }
 
  // The required department id
-async function getDepartmenttId(departmentName) {
+async function getDepartmentId(departmentName) {
     let query = "SELECT * FROM department WHERE department.name=?";
     let arguments = [departmentName];
     const rows = await db.query(query, args);
@@ -197,9 +197,9 @@ function mainQuestions() {
     ])
 }
 
-function getAddEmployeeInfo() {
-    const managers = getManagerNames();
-    const roles = getRoles();
+async function getAddEmployeeInfo() {
+    const managers = await getManagerNames();
+    const roles = await getRoles();
     return inquirer
     .prompt([
         {
@@ -231,8 +231,8 @@ function getAddEmployeeInfo() {
     ])
 }
 
-function getRemoveEmployeeInfo() {
-    const employees = getEmployeeNames();
+async function getRemoveEmployeeInfo() {
+    const employees = await getEmployeeNames();
     return inquirer
     .prompt([
         {
@@ -262,33 +262,46 @@ async function test() {
 async function getDepartmentInfo() {
     const departments = await test();
     console.log('reading departments', departments)
-    // const departments = getDepartmentNames();
+    
     return inquirer
     .prompt([
         {
             type: 'input',
-            message: 'What is the title of the new role?',
-            name: 'roleName'
-        },
-        {
-            type: 'input',
-            message: 'What is the salary of the new role?',
-            name: 'salary'
-        },
-        {
-            type: 'list',
-            message: 'Select the department the role belongs to',
-            name: 'departmentName',
-            choices: [
-                ...departments
-            ]
-        }
-    ])
+            message: 'What is the name of the new department?',
+            name: 'departmentName'
+        }]
+    )
 }
 
-function getUpdateEmployeeRoleInfo() {
-    const employees = getEmployeeNames();
-    const roles = getRoles();
+async function getRoleInfo() {
+    const departments = await getDepartmenttNames();
+    return inquirer
+    .prompt([
+{
+    type: 'input',
+    message: 'What is the title of the new role?',
+    name: 'roleName'
+},
+{
+    type: 'input',
+    message: 'What is the salary of the new role?',
+    name: 'salary'
+},
+{
+    type: 'list',
+    message: 'Select the department the role belongs to',
+    name: 'departmentName',
+    choices: [
+        ...departments
+    ]
+}
+])
+}
+
+
+async function getUpdateEmployeeRoleInfo() {
+    const employees = await getEmployeeNames();
+    const roles = await getRoles();
     return inquirer
     .prompt([
         {
