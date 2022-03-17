@@ -55,7 +55,7 @@ async function getDepartmenttNames() {
 async function getDepartmentId(departmentName) {
     let query = "SELECT * FROM department WHERE department.name=?";
     let arguments = [departmentName];
-    const rows = await db.query(query, args);
+    const rows = await db.query(query, arguments);
     return rows[0].id;
 }
 
@@ -63,7 +63,7 @@ async function getDepartmentId(departmentName) {
 async function getRoleId(roleName) {
     let query = "SELECT * FROM role WHERE role.title=?";
     let arguments = [roleName];
-    const rows = await db.query(query, args);
+    const rows = await db.query(query, arguments);
     return rows[0].id;
 }
 
@@ -72,7 +72,7 @@ async function getEmployeeId(fullName) {
     let employee = getFirstAndSurname(fullName) 
     let query = "SELECT id FROM employee WHERE employee.first_name=? AND employee.last_name=?";
     let arguments = [employee[0], employee[1]];
-    const rows = await db.query(query, args);
+    const rows = await db.query(query, arguments);
     return rows[0].id;
 }
 
@@ -246,7 +246,7 @@ async function getRemoveEmployeeInfo() {
     ])
 }
 
-async function test() {
+async function deptInfo() {
     console.log('anything really')
     let query = "SELECT name FROM department";
     const rows = await db.query(query);
@@ -256,11 +256,10 @@ async function test() {
         departments.push(row.name);
     }
     return departments;
-    // console.log('another set of trying to read', departments)
 }
 
 async function getDepartmentInfo() {
-    const departments = await test();
+    const departments = await deptInfo();
     console.log('reading departments', departments)
     
     return inquirer
@@ -327,7 +326,7 @@ async function main() {
     let exitLoop = false;
     while(!exitLoop) {
         const prompt = await mainQuestions();
-
+        
         switch(prompt.action) {
             case 'Add department': {
                 const newDepartmentName = await getDepartmentInfo();
