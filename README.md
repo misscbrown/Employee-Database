@@ -1,6 +1,17 @@
 # Employee-Database
 A database for employees
 
+Inspiration
+
+To provide a small company owner a database that keeps track of employees and allows he/she to manage employees, departments, roles and salaries, that can be easily run in the command line. 
+
+Challenges
+
+There are many moving parts to this, the first challenge was getting all the data to show in MYSQL and running the database without any errors. Then getting all the index.js code to run without errors proved a lengthy task. A lot of time was spent trying to debug and fix errors, running tests in the console and figuring out the preferred format for the application to run successfully. 
+
+Opportunities for further development
+
+This would be a great application to run with MYSQL Workbench, in order to see the tables and data in a more uniform way. It would also make the application more appealing for those users who do not necessarily have a tech background - viewing the details in the console is quite boring and is not the best practise for users who may have impaired vision, or reading difficulties. It could also be 'pre filled' for specific industry organisations - so that it can act as an easy to use starter template. This would be great for new startups and smaller companies.
 
 Acceptance Criteria
 GIVEN a command-line application that accepts user input
