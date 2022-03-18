@@ -23,7 +23,7 @@ Send me an email: djmisscbrown@hotmail.com
 
 Video walkthrough: https://drive.google.com/drive/folders/1-yQ2zVSeLrjRgtEtJRCxUsVwVO6J_ye2?usp=sharing
 
-![gif](/images/empdatabase.gif)
+![gif](./Images/empdatabase.gif)
 
 Acceptance Criteria
 GIVEN a command-line application that accepts user input
