@@ -13,7 +13,8 @@ const db = new Database({
 });
 
 // Starts calls to the database using async - which makes a function return a Promise
-// and await, which makes the function wait for a Promise
+// and await, which makes the function wait for a Promise. This means that the next line
+// of code won't be executed until the Promise has been fulfilled.
 
 // Gets information for the manager
 async function getManagerNames() {
@@ -74,7 +75,7 @@ async function getEmployeeId(fullName) {
     return rows[0].id;
 }
 
-// Gets the employees names
+// Gets the employees names. SELECT * selects all from the employee database
 async function getEmployeeNames() {
     let query = "SELECT * FROM employee";
     const rows = await db.query(query);
@@ -85,7 +86,7 @@ async function getEmployeeNames() {
     return employeeNames;
 }
 
-// Selects all to view all roles
+// Selects all to view all roles. SELECT * selects all roles from the database
 async function viewAllRoles() {
     console.log("");
     let query = "SELECT * FROM role";
@@ -94,14 +95,14 @@ async function viewAllRoles() {
     return rows;
 }
 
-// Selects all to view all departments
+// Selects all to view all departments. SELECT * selects all departments to view
 async function viewAllDepartments() {
     let query = "SELECT * FROM department";
     const rows = await db.query(query);
     console.table(rows);
 }
 
-// Selects all to view all employees
+// Selects all to view all employees using SELECT *
 async function viewAllEmployees() {
     console.log("");
     let query = "SELECT * FROM employee";
@@ -111,6 +112,8 @@ async function viewAllEmployees() {
 
 // Returns an array featuring two elements
 // Trims any spaces in first name
+// if statement makes sure the employee has a first and last name
+// for loop runs through the array and returns the first and last name
 function getFirstAndSurname( fullName ) {
     let employee = fullName.split(" ");
     if(employee.length === 2) {
@@ -124,7 +127,7 @@ function getFirstAndSurname( fullName ) {
     return [first_name.trim(), last_name];
 }
 
-// Updates the role of the employee
+// Updates the role of the employee, using async and await 
 async function updateEmployeeRole(employeeInfo) {
     const roleId = await getRoleId(employeeInfo.role);
     const employee = getFirstAndSurname(employeeInfo.employeeName);
@@ -134,7 +137,7 @@ async function updateEmployeeRole(employeeInfo) {
     console.log(`Updated employee ${employee[0]} ${employee[1]} with role ${employeeInfo.role}`);
 }
 
-// Adds a manager as an employee 
+// Adds a manager as an employee, using async and await
 async function addEmployee(employeeInfo) {
     let roleId = await getRoleId(employeeInfo.role);
     let managerId = await getEmployeeId(employeeInfo.manager);
@@ -143,7 +146,7 @@ async function addEmployee(employeeInfo) {
     console.log(`added employee ${employeeInfo.first_name} ${employeeInfo.last_name}`);
 }
 
-// Removes an employee from database
+// Removes an employee from database, confirms with the console log, name of employee removed
 async function removeEmployee(employeeInfo) {
     const employeeName = getFirstAndSurname(employeeInfo.employeeName);
     let query = "DELETE from employee WHERE first_name=? AND last_name=?";
@@ -172,7 +175,7 @@ async function addRole(roleInfo) {
     console.log(`Added ${title}`);
 };
 
-// Questions for the user to answer
+// Questions for the user to answer, shows in the console as a list
 function mainQuestions() {
     return inquirer
     .prompt([
@@ -195,6 +198,7 @@ function mainQuestions() {
     ])
 }
 
+// Takes input from the user in the console
 async function getAddEmployeeInfo() {
     const managers = await getManagerNames();
     const roles = await getRoles();
@@ -229,6 +233,7 @@ async function getAddEmployeeInfo() {
     ])
 }
 
+// Removes the employee, displays employees in a list
 async function getRemoveEmployeeInfo() {
     const employees = await getEmployeeNames();
     return inquirer
@@ -244,11 +249,11 @@ async function getRemoveEmployeeInfo() {
     ])
 }
 
+// Adds departments and displays current departments in a list
 async function deptInfo() {
-    console.log('anything really')
     let query = "SELECT name FROM department";
     const rows = await db.query(query);
-    console.log('these are', rows)
+    console.log('current departments are', rows)
     let departments = [];
     for(const row of rows) {
         departments.push(row.name);
@@ -258,7 +263,6 @@ async function deptInfo() {
 
 async function getDepartmentInfo() {
     const departments = await deptInfo();
-    console.log('reading departments', departments)
     
     return inquirer
     .prompt([
@@ -270,6 +274,7 @@ async function getDepartmentInfo() {
     )
 }
 
+// takes input from the user, to add a new role
 async function getRoleInfo() {
     const departments = await getDepartmenttNames();
     return inquirer
@@ -295,7 +300,7 @@ async function getRoleInfo() {
 ])
 }
 
-
+// takes input from the user to add a new employee
 async function getUpdateEmployeeRoleInfo() {
     const employees = await getEmployeeNames();
     const roles = await getRoles();
@@ -320,6 +325,7 @@ async function getUpdateEmployeeRoleInfo() {
     ])
 }
 
+// Runs the main questions as long as exit has not been selected
 async function main() {
     let exitLoop = false;
     while(!exitLoop) {
