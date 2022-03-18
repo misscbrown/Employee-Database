@@ -13,6 +13,18 @@ Opportunities for further development
 
 This would be a great application to run with MYSQL Workbench, in order to see the tables and data in a more uniform way. It would also make the application more appealing for those users who do not necessarily have a tech background - viewing the details in the console is quite boring and is not the best practise for users who may have impaired vision, or reading difficulties. It could also be 'pre filled' for specific industry organisations - so that it can act as an easy to use starter template. This would be great for new startups and smaller companies.
 
+The add employee repeats the steps before moving on to the main questions again - I would improve it by removing that particular feature.
+
+This application is built using Node, Javascript and MYSQL
+
+Find me on github: https://github.com/misscbrown
+
+Send me an email: djmisscbrown@hotmail.com
+
+Video walkthrough: https://drive.google.com/drive/folders/1-yQ2zVSeLrjRgtEtJRCxUsVwVO6J_ye2?usp=sharing
+
+![gif](/images/empdatabase.gif)
+
 Acceptance Criteria
 GIVEN a command-line application that accepts user input
 
@@ -39,3 +51,4 @@ THEN I am prompted to enter the employee’s first name, last name, role, and ma
 
 WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
+
